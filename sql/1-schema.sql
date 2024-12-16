@@ -35,7 +35,7 @@ CREATE TABLE chairs
   PRIMARY KEY (id)
 )
   COMMENT = '椅子情報テーブル';
-
+ALTER TABLE chairs ADD INDEX idx(access_token);
 DROP TABLE IF EXISTS chair_locations;
 CREATE TABLE chair_locations
 (
@@ -47,7 +47,7 @@ CREATE TABLE chair_locations
   PRIMARY KEY (id)
 )
   COMMENT = '椅子の現在位置情報テーブル';
-
+ALTER TABLE chair_locations ADD INDEX idx_loc(chair_id,created_at);
 DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
@@ -93,7 +93,7 @@ CREATE TABLE rides
   PRIMARY KEY (id)
 )
   COMMENT = 'ライド情報テーブル';
-
+ALTER TABLE rides ADD INDEX idx_chair(chair_id,updated_at,created_at);
 DROP TABLE IF EXISTS ride_statuses;
 CREATE TABLE ride_statuses
 (
@@ -106,7 +106,7 @@ CREATE TABLE ride_statuses
   PRIMARY KEY (id)
 )
   COMMENT = 'ライドステータスの変更履歴テーブル';
-
+ALTER TABLE ride_statuses ADD INDEX idx_all(ride_id,created_at,chair_sent_at,app_sent_at);
 DROP TABLE IF EXISTS owners;
 CREATE TABLE owners
 (
